@@ -19,4 +19,14 @@ export const createCustomer = async (req, res) =>{
         console.log(error)
         res.status(500).json({success: false, message: error.message})
     }
+
+}
+
+export const getCustomers = async(req, res) =>{
+    try {
+        const customers = await Customer.find({ user: req.params.userId });
+        res.status(200).json({ success: true, message:"succesfully search",data: customers });
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
 }
