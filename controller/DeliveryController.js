@@ -17,10 +17,10 @@ export const createDelivery = async(req, res) =>{
                 customer: customer._id
             })
             const deliverySaved = await newDelivery.save()
-            res.status(201).json({success: true, message: "Delivery was created"})
+            res.status(201).json({success: true, message: "Delivery was created", data: deliverySaved})
         }
     }
     catch(error){
         res.status(500).json({success: false, message: error.message})
     }
-}
+}   
