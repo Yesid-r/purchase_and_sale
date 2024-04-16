@@ -6,9 +6,13 @@ const customerSchema = mongoose.Schema({
         type: String,
         required: true, 
     },
-    pricce_per_bottle: {
+    price_per_bottle: {
         type: Number,
         required: true 
+    },
+    user:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
     }
     
 },

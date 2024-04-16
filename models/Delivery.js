@@ -2,12 +2,14 @@ import { ObjectId } from "mongodb";
 import mongoose from "mongoose";
 
 const deliverySchema = mongoose.Schema({
-    usuer_id: {
-        type: ObjectId
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
         
     },
-    client_id: {
-        type: ObjectId
+    customer: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Customer",
     },
     date: {
         type: Date
