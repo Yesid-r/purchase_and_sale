@@ -1,0 +1,27 @@
+# Directorios
+node_modules/
+dist/
+build/
+
+# Archivos
+.env
+.DS_Store
+*.log
+
+# Caché
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDEs / Editores
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Archivos temporales
+*.tmp
+*.bak
+*.swp
+
+# Dependencias específicas de tu proyecto (edita esta lista según tus necesidades)
