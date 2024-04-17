@@ -2,6 +2,8 @@ import express from 'express'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import dotenv from "dotenv"
+import authRouter from './routes/auth.js'
+import customerRouter from './routes/customer.js'
 
 const app = express()
 dotenv.config()
@@ -15,6 +17,8 @@ const port = process.env.PORT || 8000
 
 app.use(express.json())
 app.use(cors(corsOptions))
+app.use('/auth', authRouter)
+app.use('/customer', customerRouter)
 mongoose.set('strictQuery', false);
 const connect = async () => {
     try {
@@ -30,6 +34,7 @@ const connect = async () => {
     }
 }
 connect()
+
 
 app.listen(port, ()=>{
     console.log(`server listen on port: ${port}`)

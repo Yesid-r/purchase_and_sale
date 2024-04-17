@@ -1,7 +1,9 @@
 import Customer from "../models/Customer.js";
+import User from "../models/User.js";
 
 export const createCustomer = async (req, res) =>{
     const user = await User.findById(req.params.userId);
+    
     try {
         const {name, price_per_bottle } = req.body
         if(!user){
