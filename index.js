@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import dotenv from "dotenv"
 import authRouter from './routes/auth.js'
 import customerRouter from './routes/customer.js'
+import deliveryRouter from'./routes/delivery.js'
 
 const app = express()
 dotenv.config()
@@ -19,6 +20,7 @@ app.use(express.json())
 app.use(cors(corsOptions))
 app.use('/auth', authRouter)
 app.use('/customer', customerRouter)
+app.use('/delivery', deliveryRouter)
 mongoose.set('strictQuery', false);
 const connect = async () => {
     try {

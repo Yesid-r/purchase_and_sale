@@ -5,6 +5,7 @@ const customerSchema = mongoose.Schema({
     name:{
         type: String,
         required: true, 
+        unique: true
     },
     price_per_bottle: {
         type: Number,
