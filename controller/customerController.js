@@ -26,17 +26,23 @@ export const createCustomer = async (req, res) =>{
 }
 
 export const getCustomers = async(req, res) =>{
+     
     try {
-        // Buscar clientes del usuario
-        const customers = await Customer.find({ user: req.params.userId });
+        const user = await User.findById(req.params.userId)
+        if(!user){
+            res.status(404).json({success: false, message:"User not found"})
+        }else{
+            const customers = await Customer.find({ user: req.params.userId });
 
-        // Para cada cliente, buscar las entregas asociadas
-        const customersWithDeliveries = await Promise.all(customers.map(async (customer) => {
-            const deliveries = await Delivery.find({ customer: customer._id });
-            return { customer, deliveries };
-        }));
+            
+            const customersWithDeliveries = await Promise.all(customers.map(async (customer) => {
+                const deliveries = await Delivery.find({ customer: customer._id });
+                return { customer, deliveries };
+            }));
+    
+            res.status(200).json({ success: true, message: "Successfully searched", data: customersWithDeliveries });
+        }    
 
-        res.status(200).json({ success: true, message: "Successfully searched", data: customersWithDeliveries });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
