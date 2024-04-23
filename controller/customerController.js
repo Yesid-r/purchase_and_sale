@@ -61,3 +61,16 @@ export const deleteCustomer = async(req, res) =>{
         
     }
 }
+export const getCustomer = async(req, res) =>{
+    try {
+        const customerId = req.params.customerId
+        const customer = await Customer.findById(customerId)
+        if(!customer){
+            return res.status(404).json({success: false, message:"customer not found"})
+        }else{
+            return res.status(200).json({success: true, message: "customer succesfully found", data: customer })
+        }
+    } catch (error) {
+        
+    }
+}
