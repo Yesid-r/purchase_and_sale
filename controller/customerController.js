@@ -105,29 +105,22 @@ export const getCustomer = async(req, res) =>{
 
 export const getCustomersOnDateWithoutDelivery = async (req, res) => {
     try {
-        const { userId, date } = req.params; 
-
-        // Obtener todos los clientes del usuario
-        const customers = await Customer.find({ user: userId });
-
-        // Obtener los IDs de los clientes entregados en la fecha especificada
-        const deliveredCustomers = await Delivery.find({ date }).distinct('customer');
-
-        // Filtrar los clientes que no están en la lista de clientes entregados
-        const undeliveredCustomers = [];
-        customers.forEach(customer => {
-            if (!deliveredCustomers.includes(customer._id)) {
+        const { userId } = req.params; 
+        const {date} = req.query;
+        const customers = await Customer.find();
+        let undeliveredCustomers = [];
+        for (const customer of customers) {
+            
+            const deliveries = await Delivery.find({ 
+                customer: customer._id,
+                date: new Date(date)
+            });
+            if(deliveries.length === 0) {
                 undeliveredCustomers.push(customer);
             }
-        });
+        }
 
-        // Mostrar los clientes encontrados por consola
-        console.log("Clientes sin entrega en la fecha especificada:");
-        undeliveredCustomers.forEach(customer => {
-            console.log(`ID: ${customer._id}, Nombre: ${customer.name}`);
-        });
-
-        res.json(undeliveredCustomers);
+        res.status(200).json({ success: true, message: 'Clientes sin entrega en la fecha especificada', data: undeliveredCustomers });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error al obtener clientes sin entrega en la fecha especificada', error: error.message });

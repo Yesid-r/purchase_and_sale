@@ -8,6 +8,6 @@ router.post('/createCustomer/:userId', createCustomer)
 router.get('/getCustomers/:userId', getCustomers)
 router.delete('/deleteCustomer/:customerId', deleteCustomer)
 router.get('/getCustomer/:customerId', getCustomer)
-router.get('/customers/:userId/:date', getCustomersOnDateWithoutDelivery)
+router.get('/customers/:userId', getCustomersOnDateWithoutDelivery)
 
 export default router
